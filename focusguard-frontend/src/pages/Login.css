@@ -1,0 +1,125 @@
+/* PAGE WRAPPER */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: 20px;
+}
+
+/* CARD */
+.login-card {
+  width: 100%;
+  max-width: 820px;
+  background: var(--card);
+  border-radius: 16px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* LEFT SIDE (ILLUSTRATION / BRAND) */
+.login-left {
+  flex: 1;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 40px;
+}
+
+.login-left h2 {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* RIGHT SIDE (FORM) */
+.login-right {
+  flex: 1;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-right h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.login-right p {
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+/* INPUT GROUP */
+.login-right input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+}
+
+.login-right input:focus {
+  border-color: var(--primary);
+}
+
+/* PLACEHOLDER */
+.login-right input::placeholder {
+  color: var(--muted);
+}
+
+/* BUTTON */
+.login-right button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  background: var(--primary);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.login-right button:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+/* FOOTER TEXT */
+.login-footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.login-footer span {
+  color: var(--primary);
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .login-card {
+    flex-direction: column;
+  }
+
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    padding: 32px;
+  }
+}

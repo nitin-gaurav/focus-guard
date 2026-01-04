@@ -1,0 +1,86 @@
+/* ===== LAYOUT ===== */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #0f172a, #020617);
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo */
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 40px;
+}
+
+/* Nav container */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ===== NAV LINKS ===== */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 12px;
+
+  color: #cbd5f5;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+/* Icons */
+.nav-link svg {
+  font-size: 18px;
+  color: inherit;
+}
+
+/* Hover */
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Active */
+.nav-link.active {
+  background: #1e293b;
+  color: #ffffff;
+}
+
+/* Logout spacing */
+.logout {
+  margin-top: auto;
+}
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  flex: 1;
+  padding: 32px;
+}
+
+/* ===== TOP RIGHT THEME BUTTON FIX (GLOBAL) ===== */
+.theme-btn {
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}

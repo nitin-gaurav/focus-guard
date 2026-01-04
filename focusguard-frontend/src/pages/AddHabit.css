@@ -1,0 +1,29 @@
+.add-habit-card {
+  max-width: 480px;
+  margin-top: 24px;
+}
+
+.add-habit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.add-habit-form input,
+.add-habit-form select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.add-habit-form button {
+  margin-top: 10px;
+  background: var(--primary);
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
