@@ -1,3 +1,13 @@
+/* ===== DASHBOARD WRAPPER (FIX EXTRA SPACE) ===== */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;        /* controls vertical spacing cleanly */
+  padding-bottom: 0;
+}
+
+
+
 /* ===== PAGE TITLE ===== */
 .dashboard-title {
   font-size: 36px;
@@ -11,8 +21,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  margin-bottom: 32px;
 }
+
 
 .card {
   background: #ffffff;

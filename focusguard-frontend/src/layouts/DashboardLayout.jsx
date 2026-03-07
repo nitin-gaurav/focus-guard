@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Outlet } from "react-router-dom";
 import {
   FiHome,
   FiBarChart2,
@@ -7,7 +7,7 @@ import {
 } from "react-icons/fi";
 import "./DashboardLayout.css";
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = () => {
   const navigate = useNavigate();
 
   const logout = () => {
@@ -22,7 +22,6 @@ const DashboardLayout = ({ children }) => {
         <h2 className="logo">FocusGuard</h2>
 
         <nav className="sidebar-nav">
-          {/* Dashboard */}
           <NavLink
             to="/dashboard"
             end
@@ -34,7 +33,6 @@ const DashboardLayout = ({ children }) => {
             <span>Dashboard</span>
           </NavLink>
 
-          {/* Analytics */}
           <NavLink
             to="/analytics"
             className={({ isActive }) =>
@@ -45,7 +43,6 @@ const DashboardLayout = ({ children }) => {
             <span>Analytics</span>
           </NavLink>
 
-          {/* Add Habit */}
           <NavLink
             to="/add-habit"
             className={({ isActive }) =>
@@ -56,7 +53,6 @@ const DashboardLayout = ({ children }) => {
             <span>Add Habit</span>
           </NavLink>
 
-          {/* Logout */}
           <div className="nav-link logout" onClick={logout}>
             <FiLogOut />
             <span>Logout</span>
@@ -64,8 +60,10 @@ const DashboardLayout = ({ children }) => {
         </nav>
       </aside>
 
-      {/* Main Content */}
-      <main className="content">{children}</main>
+      {/* MAIN CONTENT — THIS FIXES EVERYTHING */}
+      <main className="content">
+        <Outlet />
+      </main>
     </div>
   );
 };

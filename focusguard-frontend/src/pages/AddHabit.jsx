@@ -1,4 +1,3 @@
-import DashboardLayout from "../layouts/DashboardLayout";
 import { useState } from "react";
 import api from "../api/axios";
 import "./AddHabit.css";
@@ -14,16 +13,18 @@ const AddHabit = () => {
 
   const submit = async (e) => {
     e.preventDefault();
+
     await api.post("/habits/log", {
       ...form,
       duration: Number(form.duration),
     });
+
     alert("Habit saved");
   };
 
   return (
-    <DashboardLayout>
-      <h1>Add Habit</h1>
+    <div className="dashboard">
+      <h1 className="dashboard-title">Add Habit</h1>
 
       <div className="card add-habit-card">
         <form onSubmit={submit} className="add-habit-form">
@@ -67,10 +68,10 @@ const AddHabit = () => {
             }
           />
 
-          <button>Save Habit</button>
+          <button type="submit">Save Habit</button>
         </form>
       </div>
-    </DashboardLayout>
+    </div>
   );
 };
 

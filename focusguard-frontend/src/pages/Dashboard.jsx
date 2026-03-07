@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import api from "../api/axios";
-import DashboardLayout from "../layouts/DashboardLayout";
 
+import api from "../api/axios";
 import {
   LineChart,
   Line,
@@ -12,6 +11,7 @@ import {
 } from "recharts";
 
 import "./Dashboard.css";
+import FocusTimer from "../components/FocusTimer";
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
@@ -19,9 +19,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchDashboard = async () => {
-      const res = await api.get("/analytics");
-      setStats(res.data.stats);
-      setWeeklyData(res.data.weekly);
+      try {
+        const res = await api.get("/analytics");
+        setStats(res.data.stats);
+        setWeeklyData(res.data.weekly);
+      } catch (error) {
+        console.error("Failed to fetch dashboard data:", error);
+      }
     };
 
     fetchDashboard();
@@ -30,9 +34,11 @@ const Dashboard = () => {
   if (!stats) return null;
 
   return (
-    <DashboardLayout>
+    <div className="dashboard">
+      {/* Page Title */}
       <h1 className="dashboard-title">Dashboard</h1>
 
+      {/* Stats Cards */}
       <div className="dashboard-cards">
         <div className="card">
           <h4>Success Rate</h4>
@@ -50,6 +56,7 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {/* Weekly Focus Chart */}
       <div className="chart-container">
         <h3>Weekly Focus</h3>
 
@@ -68,7 +75,10 @@ const Dashboard = () => {
           </LineChart>
         </ResponsiveContainer>
       </div>
-    </DashboardLayout>
+
+      {/* Focus Timer */}
+      <FocusTimer />
+    </div>
   );
 };
 

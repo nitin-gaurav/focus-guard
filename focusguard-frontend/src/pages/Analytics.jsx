@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import DashboardLayout from "../layouts/DashboardLayout";
 import "./Dashboard.css";
 
 const Analytics = () => {
@@ -8,8 +7,12 @@ const Analytics = () => {
 
   useEffect(() => {
     const fetchAnalytics = async () => {
-      const res = await api.get("/analytics");
-      setStats(res.data.stats);
+      try {
+        const res = await api.get("/analytics");
+        setStats(res.data.stats);
+      } catch (error) {
+        console.error("Failed to fetch analytics data:", error);
+      }
     };
 
     fetchAnalytics();
@@ -18,7 +21,7 @@ const Analytics = () => {
   if (!stats) return null;
 
   return (
-    <DashboardLayout>
+    <div className="dashboard">
       <h1 className="dashboard-title">Analytics</h1>
 
       <div className="dashboard-cards">
@@ -37,7 +40,7 @@ const Analytics = () => {
           <p>{stats.focusTime} hrs</p>
         </div>
       </div>
-    </DashboardLayout>
+    </div>
   );
 };
 

@@ -68,6 +68,12 @@
   margin-top: auto;
 }
 
+.logout:hover{
+  color: rgb(255, 0, 0);
+  
+  
+}
+
 /* ===== MAIN CONTENT ===== */
 .content {
   flex: 1;
