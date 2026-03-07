@@ -14,11 +14,10 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://your-netlify-site.netlify.app"
+    "https://69ac897---joyful-nougat-6a2286.netlify.app"
   ],
   credentials: true,
 }));
-
 app.use(express.json());
 
 /* =======================
