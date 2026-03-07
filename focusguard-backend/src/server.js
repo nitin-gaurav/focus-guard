@@ -12,14 +12,42 @@ const app = express();
 ======================= */
 
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://focus-guard.netlify.app",
-    /\.netlify\.app$/
-  ],
-  credentials: true
+  origin: function (origin, callback) {
+    // Allow local development plus Netlify/Vercel preview deployments.
+    if (!origin || origin.includes("localhost") || origin.includes("netlify.app") || origin.includes("vercel.app")) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
 }));
+
 app.use(express.json());
+
+/* =======================
+   DATABASE CONNECTION
+======================= */
+
+let isConnected = false;
+
+const connectDB = async () => {
+  if (isConnected) return;
+
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    isConnected = true;
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
+  }
+};
+
+// Ensure DB is connected for every API request.
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
 
 /* =======================
    ROUTES
@@ -36,7 +64,7 @@ app.use("/api/analytics", analyticsRoutes);
 app.use("/api/sessions", sessionRoutes);
 
 /* =======================
-   HEALTH CHECK ROUTE
+   HEALTH CHECK
 ======================= */
 
 app.get("/", (req, res) => {
@@ -44,20 +72,14 @@ app.get("/", (req, res) => {
 });
 
 /* =======================
-   DATABASE + SERVER
+   EXPORT FOR VERCEL
 ======================= */
 
-const PORT = process.env.PORT || 5000;
+module.exports = app;
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB connected");
-
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error("MongoDB connection error:", err);
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running locally on port ${PORT}`);
   });
+}
