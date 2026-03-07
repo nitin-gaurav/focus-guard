@@ -14,9 +14,10 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://69ac897---joyful-nougat-6a2286.netlify.app"
+    "https://focus-guard.netlify.app",
+    /\.netlify\.app$/
   ],
-  credentials: true,
+  credentials: true
 }));
 app.use(express.json());
 
