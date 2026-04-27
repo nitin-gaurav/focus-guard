@@ -45,7 +45,7 @@ export default function SidebarLayout() {
         </div>
       </aside>
 
-      <main className="flex-1 min-w-0 bg-[var(--bg)] px-3 pb-28 pt-4 md:px-8 md:py-6">
+      <main className="flex-1 min-w-0 bg-[var(--bg)] px-3 pb-[calc(7rem+env(safe-area-inset-bottom))] pt-[calc(1rem+env(safe-area-inset-top))] md:px-8 md:py-6">
         <header className="mb-4 flex items-center justify-between rounded-2xl border border-[var(--border)] bg-[var(--card)] px-4 py-3 shadow-sm md:hidden">
           <Link to="/dashboard" className="text-lg font-extrabold tracking-tight text-[var(--text)]">
             FocusGuard
