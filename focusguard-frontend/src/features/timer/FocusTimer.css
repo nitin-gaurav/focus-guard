@@ -1,0 +1,362 @@
+.deep-work-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card);
+  border-radius: 18px;
+  width: 100%;
+  padding: 26px 28px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  gap: 24px;
+}
+
+/* Subtle glowing background when active */
+.deep-work-card.timer-active::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 30% 50%, color-mix(in srgb, var(--primary) 10%, transparent) 0%, transparent 60%);
+  pointer-events: none;
+  animation: breathe 4s infinite alternate;
+}
+
+@keyframes breathe {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* Left: Timer Display */
+.timer-hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.timer-display-wrapper {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.progress-bg {
+  fill: none;
+  stroke: var(--input-bg);
+  stroke-width: 6;
+}
+
+.progress-bar {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.timer-active .progress-bar {
+  stroke: #a855f7;
+  filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.5));
+}
+
+.timer-time {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -2px;
+  z-index: 2;
+}
+
+/* Middle: Controls & Intent */
+.timer-content-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 2;
+}
+
+.task-intention {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.task-intention input,
+.task-intention select.habit-selector {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  outline: none;
+  transition: all 0.3s ease;
+  margin-bottom: 8px;
+}
+
+.task-intention select.habit-selector {
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  appearance: none;
+}
+
+.task-intention input:focus,
+.task-intention select.habit-selector:focus {
+  border-color: var(--primary);
+  background: var(--card);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.task-intention input:disabled {
+  background: transparent;
+  border-color: transparent;
+  color: var(--primary);
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 0;
+}
+
+.timer-modes {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.mode-btn {
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.mode-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 45%, transparent);
+}
+
+.timer-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.control-btn {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* FIX: Ensure the SVG inside the button is properly sized */
+.control-btn svg {
+  width: 27px;
+  height: 27px;
+  display: block; /* prevents baseline spacing issues */
+}
+
+.control-btn.play {
+  background: linear-gradient(135deg, var(--primary), #2563eb);
+}
+
+.control-btn.pause {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.control-btn.stop {
+  background: var(--input-bg);
+  border: 2px solid var(--border);
+  color: var(--text);
+  width: 52px;
+  height: 52px;
+  box-shadow: none;
+}
+
+.control-btn.stop svg {
+  width: 20px;
+  height: 20px;
+}
+
+.control-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+.control-btn.stop:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* Right: Ambient Sounds */
+.ambient-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 24px;
+  border-left: 1px solid var(--border);
+  min-width: 168px;
+  z-index: 2;
+}
+
+.ambient-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sound-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 11px 12px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.sound-btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+.sound-btn:hover {
+  background: var(--card);
+  color: var(--text);
+  border-color: var(--primary);
+}
+
+.sound-btn.active {
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  color: var(--primary);
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .deep-work-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .timer-display-wrapper {
+    width: 190px;
+    height: 190px;
+  }
+
+  .timer-time {
+    font-size: 3rem;
+  }
+
+  .ambient-section {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 16px;
+    width: 100%;
+    align-items: center;
+    min-width: unset;
+  }
+
+  .timer-controls {
+    justify-content: center;
+  }
+
+  .timer-modes {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .timer-content-section {
+    width: 100%;
+  }
+
+  .task-intention {
+    margin-bottom: 16px;
+  }
+
+  .ambient-title {
+    justify-content: center;
+  }
+
+  .sound-btn {
+    max-width: 340px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .deep-work-card {
+    border-radius: 14px;
+    padding: 16px;
+  }
+
+  .timer-display-wrapper {
+    width: 170px;
+    height: 170px;
+  }
+
+  .timer-time {
+    font-size: 2.65rem;
+    letter-spacing: -1px;
+  }
+
+  .mode-btn {
+    flex: 1;
+    justify-content: center;
+    min-width: 120px;
+  }
+}

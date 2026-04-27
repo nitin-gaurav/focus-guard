@@ -1,13 +1,15 @@
+import React from 'react';
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
-} from "recharts";
-
-import "../pages/Dashboard.css";
+  CartesianGrid
+} from 'recharts';
+import { FiCheckCircle, FiClock, FiTarget } from "react-icons/fi";
+import '../dashboard/Dashboard.css';
 
 const StatsPage = ({ title, stats, weeklyData }) => {
   return (

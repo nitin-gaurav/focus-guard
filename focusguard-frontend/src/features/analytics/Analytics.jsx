@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import api from "../api/axios";
-import "./Dashboard.css";
+import api from "../../api/axios";
+import StatsPage from "./StatsPage";
 
 const Analytics = () => {
   const [stats, setStats] = useState(null);

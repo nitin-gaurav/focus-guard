@@ -1,0 +1,21 @@
+/* LIGHT THEME */
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --input-bg: #f8fafc;
+  --primary: #3b82f6;
+}
+
+/* DARK THEME */
+.dark {
+  --bg: #050d2e;
+  --card: rgba(255, 255, 255, 0.05);
+  --text: #ffffff;
+  --muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
+  --input-bg: rgba(255, 255, 255, 0.08);
+  --primary: #3b82f6;
+}

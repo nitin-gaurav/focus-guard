@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://focus-guard-xi.vercel.app/api",
+  baseURL: import.meta.env.DEV 
+    ? "http://localhost:5000/api" 
+    : "https://focus-guard-xi.vercel.app/api",
   withCredentials: true,
 });
 

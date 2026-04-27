@@ -1,0 +1,209 @@
+/* Centered Glassmorphic Card Layout */
+.signup-container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+}
+
+/* Abstract Animated Background */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 0;
+  opacity: 0.6;
+  animation: float 10s infinite ease-in-out alternate;
+}
+
+.blob-1 {
+  width: 500px;
+  height: 500px;
+  background: rgba(139, 92, 246, 0.4); /* Violet */
+  top: -100px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+.blob-2 {
+  width: 600px;
+  height: 600px;
+  background: rgba(236, 72, 153, 0.3); /* Pink */
+  bottom: -200px;
+  right: -100px;
+  animation-delay: -3s;
+}
+
+.blob-3 {
+  width: 400px;
+  height: 400px;
+  background: rgba(59, 130, 246, 0.3); /* Blue */
+  top: 40%;
+  left: 60%;
+  animation-delay: -6s;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, 30px) scale(1.05); }
+  100% { transform: translate(-30px, 60px) scale(0.95); }
+}
+
+/* Glassmorphic Card */
+.signup-card {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
+  padding: 50px 40px;
+  position: relative;
+  z-index: 10;
+  color: var(--text);
+}
+
+.signup-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.signup-header h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.signup-header p {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.signup-error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.signup-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.signup-icon {
+  position: absolute;
+  left: 18px;
+  font-size: 1.2rem;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+.signup-input-container input {
+  width: 100%;
+  padding: 16px 16px 16px 50px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.signup-input-container input::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+.signup-input-container input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #a855f7;
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15);
+}
+
+.signup-input-container input:focus + .signup-icon,
+.signup-input-container input:not(:placeholder-shown) + .signup-icon {
+  color: #a855f7;
+}
+
+.signup-submit-btn {
+  margin-top: 15px;
+  padding: 16px;
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.3);
+}
+
+.signup-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(168, 85, 247, 0.4);
+}
+
+.signup-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.signup-footer {
+  margin-top: 30px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.signup-link {
+  color: #a855f7;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 5px;
+  transition: text-shadow 0.3s ease;
+}
+
+.signup-link:hover {
+  text-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
+}
+
+/* Light Theme Overrides (if required, since we use var(--bg)) */
+:root:not(.dark) .signup-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+}
+
+:root:not(.dark) .signup-input-container input {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+:root:not(.dark) .signup-input-container input:focus {
+  background: #fff;
+}

@@ -1,40 +1,46 @@
 const express = require("express");
-const HabitLog = require("../models/HabitLog");
+const Habit = require("../models/Habit");
 const authMiddleware = require("../middleware/authMiddleware");
-const { calculateStatus } = require("../utils/habitRules");
 
 const router = express.Router();
 
 /**
- * Add Habit Log
+ * Get all habits for the logged-in user
  */
-router.post("/log", authMiddleware, async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   try {
-    const { habitName, duration, timeSlot, trigger, mood } = req.body;
+    const habits = await Habit.find({ userId: req.userId }).sort({ createdAt: -1 });
+    res.json(habits);
+  } catch (err) {
+    console.error("Failed to fetch habits", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
-    if (!habitName || !duration || !timeSlot) {
-      return res.status(400).json({ message: "Missing required fields" });
+/**
+ * Create a new habit
+ */
+router.post("/", authMiddleware, async (req, res) => {
+  try {
+    const { title, category, targetMinutesPerWeek, color, icon } = req.body;
+
+    if (!title) {
+      return res.status(400).json({ message: "Habit title is required" });
     }
 
-    const status = calculateStatus(habitName, duration);
-
-    const habitLog = new HabitLog({
+    const habit = new Habit({
       userId: req.userId,
-      habitName,
-      duration,
-      timeSlot,
-      status,
-      trigger,
-      mood
+      title,
+      category,
+      targetMinutesPerWeek,
+      color,
+      icon
     });
 
-    await habitLog.save();
-
-    res.status(201).json({
-      message: "Habit logged successfully",
-      status
-    });
+    await habit.save();
+    res.status(201).json(habit);
   } catch (err) {
+    console.error("Failed to create habit", err);
     res.status(500).json({ message: "Server error" });
   }
 });

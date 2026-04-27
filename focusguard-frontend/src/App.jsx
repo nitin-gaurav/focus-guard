@@ -1,56 +1,37 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./features/auth/Login";
+import Signup from "./features/auth/Signup";
+import Dashboard from "./features/dashboard/Dashboard";
+import SidebarLayout from "./layouts/SidebarLayout";
+import ProtectedRoute from "./core/ProtectedRoute";
+import ThemeToggle from "./core/ThemeToggle";
+import AddHabit from "./features/habits/AddHabit";
+import Analytics from "./features/analytics/Analytics";
+import "./App.css";
 
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import Analytics from "./pages/Analytics";
-import AddHabit from "./pages/AddHabit";
-import DashboardLayout from "./layouts/DashboardLayout";
-import ProtectedRoute from "./components/ProtectedRoute";
-
-const App = () => {
-  const [dark, setDark] = useState(
-    localStorage.getItem("theme") === "dark"
-  );
-
-  useEffect(() => {
-    document.body.classList.toggle("dark", dark);
-    localStorage.setItem("theme", dark ? "dark" : "light");
-  }, [dark]);
-
+function App() {
   return (
-    <>
-      {/* Theme Toggle */}
-      <button
-        onClick={() => setDark(!dark)}
-        style={{
-          position: "fixed",
-          top: 20,
-          right: 20,
-          zIndex: 1000,
-        }}
-      >
-        {dark ? "🌙 Dark" : "☀️ Light"}
-      </button>
-
-      <BrowserRouter>
+    <Router>
+      <div className="app-container">
+        {/* Global theme toggle available on all pages */}
+        <ThemeToggle />
+        
         <Routes>
-          {/* Public */}
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
-
-          {/* Protected + Layout (ONLY ONCE) */}
+          <Route path="/signup" element={<Signup />} />
+          
           <Route element={<ProtectedRoute />}>
-            <Route element={<DashboardLayout />}>
+            <Route element={<SidebarLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/analytics" element={<Analytics />} />
               <Route path="/add-habit" element={<AddHabit />} />
-              <Route path="*" element={<Navigate to="/dashboard" />} />
+              <Route path="/analytics" element={<Analytics />} />
             </Route>
           </Route>
         </Routes>
-      </BrowserRouter>
-    </>
+      </div>
+    </Router>
   );
-};
+}
 
 export default App;

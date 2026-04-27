@@ -1,29 +1,31 @@
 const express = require("express");
 const router = express.Router();
-const HabitLog = require("../models/HabitLog");
+const FocusSession = require("../models/FocusSession");
 const authMiddleware = require("../middleware/authMiddleware");
 
 // GET /api/analytics
 router.get("/", authMiddleware, async (req, res) => {
   try {
-    const habits = await HabitLog.find({ userId: req.userId });
+    const sessions = await FocusSession.find({ userId: req.userId });
 
-    const sessions = habits.length;
-    const successCount = habits.filter(
-      (h) => h.status === "Success"
+    const totalSessions = sessions.length;
+    const successCount = sessions.filter(
+      (s) => s.status === "completed"
     ).length;
 
     const successRate =
-      sessions === 0 ? 0 : Math.round((successCount / sessions) * 100);
+      totalSessions === 0 ? 0 : Math.round((successCount / totalSessions) * 100);
 
     // Weekly aggregation (last 7 days)
     const weekMap = {};
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-    habits.forEach((h) => {
-      const d = new Date(h.createdAt);
-      const day = days[d.getDay()];
-      weekMap[day] = (weekMap[day] || 0) + h.duration / 60;
+    sessions.forEach((s) => {
+      if (s.startTime) {
+        const d = new Date(s.startTime);
+        const day = days[d.getDay()];
+        weekMap[day] = (weekMap[day] || 0) + s.actualDuration / 60; // hours
+      }
     });
 
     const weekly = days.map((day) => ({
@@ -34,9 +36,9 @@ router.get("/", authMiddleware, async (req, res) => {
     res.json({
       stats: {
         successRate,
-        sessions,
+        sessions: totalSessions,
         focusTime: Number(
-          (habits.reduce((a, b) => a + b.duration, 0) / 60).toFixed(1)
+          (sessions.reduce((a, b) => a + (b.actualDuration || 0), 0) / 60).toFixed(1)
         ),
       },
       weekly,
