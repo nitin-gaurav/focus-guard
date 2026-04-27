@@ -17,19 +17,7 @@ const ThemeToggle = () => {
     <button
       onClick={() => setDark(!dark)}
       aria-label="Toggle color theme"
-      style={{
-        position: "fixed",
-        top: 20,
-        right: 20,
-        zIndex: 40,
-        padding: "8px 12px",
-        borderRadius: "8px",
-        border: "1px solid var(--border)",
-        cursor: "pointer",
-        background: "var(--card)",
-        color: "var(--text)",
-        boxShadow: "0 10px 22px rgba(15, 23, 42, 0.08)",
-      }}
+      className="theme-toggle"
     >
       {dark ? "Dark" : "Light"}
     </button>

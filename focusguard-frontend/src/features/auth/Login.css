@@ -1,13 +1,14 @@
 /* Root Container & Background */
 .login-wrapper {
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--bg);
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: 20px;
 }
 
@@ -289,6 +290,7 @@
 @media (max-width: 850px) {
   .login-card {
     flex-direction: column;
+    min-height: auto;
   }
   .login-card-left {
     border-right: none;
@@ -301,5 +303,39 @@
   }
   .login-card-right {
     padding: 40px 30px;
+  }
+}
+
+@media (max-width: 560px) {
+  .login-wrapper {
+    align-items: flex-start;
+    padding: 74px 14px 24px;
+  }
+
+  .login-card {
+    border-radius: 18px;
+  }
+
+  .login-card-left {
+    display: none;
+  }
+
+  .login-card-right {
+    padding: 30px 20px 24px;
+  }
+
+  .login-header {
+    margin-bottom: 24px;
+  }
+
+  .login-header h1 {
+    font-size: 1.65rem;
+    line-height: 1.15;
+  }
+
+  .login-options {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
   }
 }

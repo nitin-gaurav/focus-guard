@@ -237,7 +237,7 @@ const HabitManager = () => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="habit-category" className="text-xs font-semibold tracking-wide uppercase text-[var(--muted)]">Category</label>
                 <select
@@ -319,7 +319,7 @@ const HabitManager = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mb-4">
             <div className="rounded-xl border border-[var(--border)] bg-[var(--input-bg)] px-3 py-2.5">
               <p className="text-[0.7rem] uppercase tracking-wide text-[var(--muted)] font-semibold">Active Habits</p>
               <p className="text-base md:text-lg font-bold text-[var(--text)]">{habits.length}</p>

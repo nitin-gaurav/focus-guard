@@ -2,3 +2,28 @@
   min-height: 100%;
   width: 100%;
 }
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 40;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+}
+
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: auto;
+    right: 14px;
+    bottom: 86px;
+    padding: 7px 10px;
+    font-size: 0.78rem;
+    border-radius: 999px;
+  }
+}
