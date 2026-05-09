@@ -1,6 +1,7 @@
 const express = require("express");
 const Habit = require("../models/Habit");
 const authMiddleware = require("../middleware/authMiddleware");
+const mongoose = require("mongoose");
 
 const router = express.Router();
 
@@ -41,6 +42,71 @@ router.post("/", authMiddleware, async (req, res) => {
     res.status(201).json(habit);
   } catch (err) {
     console.error("Failed to create habit", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+/**
+ * Update an existing habit
+ */
+router.patch("/:id", authMiddleware, async (req, res) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({ message: "Habit not found" });
+    }
+
+    const { title, category, targetMinutesPerWeek, color, icon } = req.body;
+    const updates = {};
+
+    if (title !== undefined) {
+      if (!String(title).trim()) {
+        return res.status(400).json({ message: "Habit title is required" });
+      }
+      updates.title = String(title).trim();
+    }
+    if (category !== undefined) updates.category = category;
+    if (targetMinutesPerWeek !== undefined) updates.targetMinutesPerWeek = Number(targetMinutesPerWeek);
+    if (color !== undefined) updates.color = color;
+    if (icon !== undefined) updates.icon = icon;
+
+    const updatedHabit = await Habit.findOneAndUpdate(
+      { _id: req.params.id, userId: req.userId },
+      { $set: updates },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedHabit) {
+      return res.status(404).json({ message: "Habit not found" });
+    }
+
+    res.json(updatedHabit);
+  } catch (err) {
+    console.error("Failed to update habit", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+/**
+ * Delete a habit
+ */
+router.delete("/:id", authMiddleware, async (req, res) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(404).json({ message: "Habit not found" });
+    }
+
+    const deletedHabit = await Habit.findOneAndDelete({
+      _id: req.params.id,
+      userId: req.userId,
+    });
+
+    if (!deletedHabit) {
+      return res.status(404).json({ message: "Habit not found" });
+    }
+
+    res.json({ message: "Habit deleted" });
+  } catch (err) {
+    console.error("Failed to delete habit", err);
     res.status(500).json({ message: "Server error" });
   }
 });
